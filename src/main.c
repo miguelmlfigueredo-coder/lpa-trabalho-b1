@@ -1,5 +1,25 @@
 #include <stdio.h>
 
+float calcularValorFinal(float subtotalInicial, float adicionalPeso, float adicionalModalidade, int protecao, int tentativas) {
+    const float VALOR_PROTECAO = 7.50;
+    const float VALOR_TENTATIVA = 4.00;
+    float valorFinal;
+    float valorProtecao;
+    float valorTentativas;
+
+    if (protecao == 1) {
+        valorProtecao = VALOR_PROTECAO;
+    } else {
+        valorProtecao = 0.00;
+    }
+
+    valorTentativas = tentativas * VALOR_TENTATIVA;
+
+    valorFinal = subtotalInicial + adicionalPeso + adicionalModalidade + valorProtecao + valorTentativas;
+
+    return valorFinal;
+}
+
 float calcularAdicionalModalidade(int modalidade, float subtotalInicial) {
     float percentual;
 
@@ -158,10 +178,9 @@ int main(void) {
     float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
     float adicionalPeso = calcularAdicionalPeso(peso, subtotalInicial);
     float adicionalModalidade = calcularAdicionalModalidade(modalidade, subtotalInicial);
+    float valorFinal = calcularValorFinal(subtotalInicial, adicionalPeso, adicionalModalidade, protecao, tentativas);
 
-    printf("Subtotal inicial: R$ %.2f\n", subtotalInicial);
-    printf("Adicional de peso: R$ %.2f\n", adicionalPeso);
-    printf("Adicional de modalidade: R$ %.2f\n", adicionalModalidade);
+    printf("Valor final da entrega: R$ %.2f\n", valorFinal);
 
     return 0;
 }
