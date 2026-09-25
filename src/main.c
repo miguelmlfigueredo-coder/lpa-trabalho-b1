@@ -1,5 +1,19 @@
 #include <stdio.h>
 
+float calcularAdicionalModalidade(int modalidade, float subtotalInicial) {
+    float percentual;
+
+    if (modalidade == 1) {
+        percentual = 0.00;
+    } else if (modalidade == 2) {
+        percentual = 0.15;
+    } else {
+        percentual = 0.30;
+    }
+
+    return subtotalInicial * percentual;
+}
+
 float calcularAdicionalPeso(float peso, float subtotalInicial) {
     float percentual;
 
@@ -131,7 +145,6 @@ float lerDistancia(void) {
     return distancia;
 }
 
-
 int main(void) {
     printf("Simulador de Entregas\n");
 
@@ -144,10 +157,11 @@ int main(void) {
     float valorBase = calcularValorBase(distancia);
     float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
     float adicionalPeso = calcularAdicionalPeso(peso, subtotalInicial);
-    
+    float adicionalModalidade = calcularAdicionalModalidade(modalidade, subtotalInicial);
 
     printf("Subtotal inicial: R$ %.2f\n", subtotalInicial);
     printf("Adicional de peso: R$ %.2f\n", adicionalPeso);
-    
+    printf("Adicional de modalidade: R$ %.2f\n", adicionalModalidade);
+
     return 0;
 }
