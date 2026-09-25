@@ -1,5 +1,21 @@
 #include <stdio.h>
 
+float calcularAdicionalPeso(float peso, float subtotalInicial) {
+    float percentual;
+
+    if (peso <= 2) {
+        percentual = 0.00;
+    } else if (peso <= 5) {
+        percentual = 0.05;
+    } else if (peso <= 10) {
+        percentual = 0.10;
+    } else {
+        percentual = 0.20;
+    }
+
+    return subtotalInicial * percentual;
+}
+
 float calcularSubtotalInicial(float valorBase, float distancia) {
     const float TARIFA = 1.20;
     float subtotal;
@@ -127,9 +143,11 @@ int main(void) {
 
     float valorBase = calcularValorBase(distancia);
     float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
+    float adicionalPeso = calcularAdicionalPeso(peso, subtotalInicial);
+    
 
-    printf("Valor-base calculado: R$ %.2f\n", valorBase);
     printf("Subtotal inicial: R$ %.2f\n", subtotalInicial);
-
+    printf("Adicional de peso: R$ %.2f\n", adicionalPeso);
+    
     return 0;
 }
