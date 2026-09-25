@@ -1,5 +1,23 @@
 #include <stdio.h>
 
+int lerModalidade(void) {
+    int modalidade;
+    int valido = 0;
+
+    while (!valido) {
+        printf("Escolha a modalidade (1-Economica, 2-Expressa, 3-Prioritaria): ");
+        scanf("%d", &modalidade);
+
+        if (modalidade == 1 || modalidade == 2 || modalidade == 3) {
+            valido = 1;
+        } else {
+            printf("Modalidade invalida. Digite 1, 2 ou 3.\n");
+        }
+    }
+
+    return modalidade;
+}
+
 float lerPeso(void) {
     float peso;
     int valido = 0;
@@ -42,9 +60,11 @@ int main(void) {
 
     float distancia = lerDistancia();
     float peso = lerPeso();
+    int modalidade = lerModalidade();
 
     printf("Distancia valida recebida: %.2f km\n", distancia);
     printf("Peso valido recebido: %.2f kg\n", peso);
+    printf("Modalidade valida recebida: %d\n", modalidade);
 
     return 0;
 }
