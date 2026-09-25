@@ -1,5 +1,14 @@
 #include <stdio.h>
 
+float calcularSubtotalInicial(float valorBase, float distancia) {
+    const float TARIFA = 1.20;
+    float subtotal;
+
+    subtotal = valorBase + (distancia * TARIFA);
+
+    return subtotal;
+}
+
 float calcularValorBase(float distancia) {
     float valorBase;
 
@@ -117,8 +126,10 @@ int main(void) {
     int tentativas = lerTentativas();
 
     float valorBase = calcularValorBase(distancia);
+    float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
 
     printf("Valor-base calculado: R$ %.2f\n", valorBase);
+    printf("Subtotal inicial: R$ %.2f\n", subtotalInicial);
 
     return 0;
 }
