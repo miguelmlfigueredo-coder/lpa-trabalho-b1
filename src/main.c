@@ -1,5 +1,39 @@
 #include <stdio.h>
 
+float calcularValorBase(float distancia) {
+    float valorBase;
+
+    if (distancia <= 5) {
+        valorBase = 8.00;
+    } else if (distancia <= 15) {
+        valorBase = 12.00;
+    } else if (distancia <= 30) {
+        valorBase = 18.00;
+    } else {
+        valorBase = 25.00;
+    }
+
+    return valorBase;
+}
+
+int lerTentativas(void) {
+    int tentativas;
+    int valido = 0;
+
+    while (!valido) {
+        printf("Quantas tentativas adicionais? (0 ou mais): ");
+        scanf("%d", &tentativas);
+
+        if (tentativas >= 0) {
+            valido = 1;
+        } else {
+            printf("Valor invalido. Deve ser 0 ou maior.\n");
+        }
+    }
+
+    return tentativas;
+}
+
 int lerProtecao(void) {
     int protecao;
     int valido = 0;
@@ -80,11 +114,11 @@ int main(void) {
     float peso = lerPeso();
     int modalidade = lerModalidade();
     int protecao = lerProtecao();
+    int tentativas = lerTentativas();
 
-    printf("Distancia valida recebida: %.2f km\n", distancia);
-    printf("Peso valido recebido: %.2f kg\n", peso);
-    printf("Modalidade valida recebida: %d\n", modalidade);
-    printf("Protecao valida recebida: %d\n", protecao);
+    float valorBase = calcularValorBase(distancia);
+
+    printf("Valor-base calculado: R$ %.2f\n", valorBase);
 
     return 0;
 }
