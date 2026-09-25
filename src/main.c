@@ -1,5 +1,23 @@
 #include <stdio.h>
 
+int lerProtecao(void) {
+    int protecao;
+    int valido = 0;
+
+    while (!valido) {
+        printf("Deseja contratar protecao? (1-Sim, 0-Nao): ");
+        scanf("%d", &protecao);
+
+        if (protecao == 0 || protecao == 1) {
+            valido = 1;
+        } else {
+            printf("Valor invalido. Digite 0 ou 1.\n");
+        }
+    }
+
+    return protecao;
+}
+
 int lerModalidade(void) {
     int modalidade;
     int valido = 0;
@@ -61,10 +79,12 @@ int main(void) {
     float distancia = lerDistancia();
     float peso = lerPeso();
     int modalidade = lerModalidade();
+    int protecao = lerProtecao();
 
     printf("Distancia valida recebida: %.2f km\n", distancia);
     printf("Peso valido recebido: %.2f kg\n", peso);
     printf("Modalidade valida recebida: %d\n", modalidade);
+    printf("Protecao valida recebida: %d\n", protecao);
 
     return 0;
 }
