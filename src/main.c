@@ -1,5 +1,25 @@
 #include <stdio.h>
 
+void exibirResumo(int totalEntregas, float valorTotal, int qtdEconomica, int qtdExpressa, int qtdPrioritaria, float maiorValor, float menorValor) {
+    float valorMedio;
+
+    if (totalEntregas > 0) {
+        valorMedio = valorTotal / totalEntregas;
+    } else {
+        valorMedio = 0.00;
+    }
+
+    printf("\n===== Resumo da Sessao =====\n");
+    printf("Total de entregas processadas: %d\n", totalEntregas);
+    printf("Valor total da sessao: R$ %.2f\n", valorTotal);
+    printf("Valor medio das entregas: R$ %.2f\n", valorMedio);
+    printf("Entregas Economicas: %d\n", qtdEconomica);
+    printf("Entregas Expressas: %d\n", qtdExpressa);
+    printf("Entregas Prioritarias: %d\n", qtdPrioritaria);
+    printf("Maior valor de entrega: R$ %.2f\n", maiorValor);
+    printf("Menor valor de entrega: R$ %.2f\n", menorValor);
+}
+
 int lerContinuar(void) {
     int continuar;
     int valido = 0;
@@ -236,7 +256,8 @@ int main(void) {
         continuar = lerContinuar();
     }
 
-    printf("Fim da sessao. Total de entregas: %d\n", totalEntregas);
+    printf("\nFim da sessao.\n");
+    exibirResumo(totalEntregas, valorTotal, qtdEconomica, qtdExpressa, qtdPrioritaria, maiorValor, menorValor);
 
     return 0;
 }
