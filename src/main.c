@@ -1,5 +1,23 @@
 #include <stdio.h>
 
+int lerContinuar(void) {
+    int continuar;
+    int valido = 0;
+
+    while (!valido) {
+        printf("Deseja processar outra entrega? (1-Sim, 0-Nao): ");
+        scanf("%d", &continuar);
+
+        if (continuar == 0 || continuar == 1) {
+            valido = 1;
+        } else {
+            printf("Valor invalido. Digite 0 ou 1.\n");
+        }
+    }
+
+    return continuar;
+}
+
 float calcularValorFinal(float subtotalInicial, float adicionalPeso, float adicionalModalidade, int protecao, int tentativas) {
     const float VALOR_PROTECAO = 7.50;
     const float VALOR_TENTATIVA = 4.00;
@@ -168,19 +186,57 @@ float lerDistancia(void) {
 int main(void) {
     printf("Simulador de Entregas\n");
 
-    float distancia = lerDistancia();
-    float peso = lerPeso();
-    int modalidade = lerModalidade();
-    int protecao = lerProtecao();
-    int tentativas = lerTentativas();
+    int totalEntregas = 0;
+    float valorTotal = 0.00;
+    int qtdEconomica = 0;
+    int qtdExpressa = 0;
+    int qtdPrioritaria = 0;
+    float maiorValor = 0.00;
+    float menorValor = 0.00;
+    int continuar = 1;
 
-    float valorBase = calcularValorBase(distancia);
-    float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
-    float adicionalPeso = calcularAdicionalPeso(peso, subtotalInicial);
-    float adicionalModalidade = calcularAdicionalModalidade(modalidade, subtotalInicial);
-    float valorFinal = calcularValorFinal(subtotalInicial, adicionalPeso, adicionalModalidade, protecao, tentativas);
+    while (continuar == 1) {
+        float distancia = lerDistancia();
+        float peso = lerPeso();
+        int modalidade = lerModalidade();
+        int protecao = lerProtecao();
+        int tentativas = lerTentativas();
 
-    printf("Valor final da entrega: R$ %.2f\n", valorFinal);
+        float valorBase = calcularValorBase(distancia);
+        float subtotalInicial = calcularSubtotalInicial(valorBase, distancia);
+        float adicionalPeso = calcularAdicionalPeso(peso, subtotalInicial);
+        float adicionalModalidade = calcularAdicionalModalidade(modalidade, subtotalInicial);
+        float valorFinal = calcularValorFinal(subtotalInicial, adicionalPeso, adicionalModalidade, protecao, tentativas);
+
+        printf("Valor final da entrega: R$ %.2f\n", valorFinal);
+
+        totalEntregas = totalEntregas + 1;
+        valorTotal = valorTotal + valorFinal;
+
+        if (modalidade == 1) {
+            qtdEconomica = qtdEconomica + 1;
+        } else if (modalidade == 2) {
+            qtdExpressa = qtdExpressa + 1;
+        } else {
+            qtdPrioritaria = qtdPrioritaria + 1;
+        }
+
+        if (totalEntregas == 1) {
+            maiorValor = valorFinal;
+            menorValor = valorFinal;
+        } else {
+            if (valorFinal > maiorValor) {
+                maiorValor = valorFinal;
+            }
+            if (valorFinal < menorValor) {
+                menorValor = valorFinal;
+            }
+        }
+
+        continuar = lerContinuar();
+    }
+
+    printf("Fim da sessao. Total de entregas: %d\n", totalEntregas);
 
     return 0;
 }
